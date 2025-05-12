@@ -2,6 +2,11 @@ const express = require('express')
 const logger = require('morgan')
 const methodOverride = require('method-override')
 const session = require('express-session')
+const db = require('./db')
+const authRouter = require('./routes/authRouters.js')
+const userRouter = require('./routes/userRouter.js')
+
+
 
 const PORT = process.env.PORT?process.env.PORT : 3200
 
@@ -21,6 +26,10 @@ app.use(session({
         resave: false,
         saveUninitialized: true
 }))
+
+
+app.use('/auth',authRouter)
+app.use('/users',userRouter)
 
 app.get('/',(req,res)=> {
 
